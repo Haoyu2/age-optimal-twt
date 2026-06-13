@@ -3,7 +3,7 @@
 **Provably Good Wake Schedules for Energy-Constrained Wi-Fi Status Updating**
 
 Haoyu Wang, Bo Sheng (University of Massachusetts Boston);
-Zerin Shaima Meem, Xiaoqian Zhang (University of Nebraska Omaha)
+Xiaoqian Zhang (University of Nebraska Omaha)
 
 This repository is the reproducibility artifact for the paper. It contains the
 ns-3 implementation of a Target Wake Time (TWT) mechanism, the
@@ -85,8 +85,7 @@ All implement a common `TwtScheduler` interface (`artifact/ns3-aoi-twt-module/mo
 
 ```bibtex
 @inproceedings{wang26aoitwt,
-  author    = {Wang, Haoyu and Sheng, Bo and Meem, Zerin Shaima and
-               Zhang, Xiaoqian},
+  author    = {Wang, Haoyu and Sheng, Bo and Zhang, Xiaoqian},
   title     = {Age-Optimal Target Wake Time: Provably Good Wake Schedules
                for Energy-Constrained {Wi-Fi} Status Updating},
   booktitle = {Proc. ACM MSWiM},
