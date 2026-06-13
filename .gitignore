@@ -5,5 +5,4 @@
 *.out
 __pycache__/
 *.pyc
-results.csv
-figures/
+.DS_Store

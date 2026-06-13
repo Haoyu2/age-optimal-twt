@@ -5,12 +5,10 @@
 Haoyu Wang, Bo Sheng (University of Massachusetts Boston);
 Zerin Shaima Meem, Xiaoqian Zhang (University of Nebraska Omaha)
 
-Project page: **https://haoyu2.github.io/age-optimal-twt/**
-
 This repository is the reproducibility artifact for the paper. It contains the
 ns-3 implementation of a Target Wake Time (TWT) mechanism, the
-**Harmonic-Greedy** AoI-aware scheduler, and every script needed to regenerate
-the paper's results.
+**Harmonic-Greedy** AoI-aware scheduler, every script needed to regenerate the
+paper's results, and the **raw result data** from the reported sweeps.
 
 - 📄 [Paper](paper/age-optimal-twt.pdf) · [Technical report (full proofs)](paper/age-optimal-twt-techreport.pdf)
 - 📐 [Primer: the TWT AoI renewal-reward formula](docs/PRIMER-aoi-renewal.md)
@@ -23,8 +21,9 @@ artifact/
   src-wifi/             TWT power-save manager (drops into ns-3 src/wifi)
   scratch/              single- and multi-station experiments
   scripts/              sweep drivers, lower bound, figure/macro generators
+  results/              raw result CSVs + generated figures from the paper
 paper/                  compiled paper and technical report
-docs/                   GitHub Pages site + primer
+docs/                   primer + project landing page
 ```
 
 ## Requirements
