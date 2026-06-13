@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Age-Optimal Target Wake Time</title>
+<style>
+  :root { --ink:#1a1a2e; --muted:#555; --accent:#1565c0; --bg:#fafafe;
+          --card:#fff; --line:#e3e3ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+         Roboto,Helvetica,Arial,sans-serif; color:var(--ink);
+         background:var(--bg); line-height:1.6; }
+  .wrap { max-width:860px; margin:0 auto; padding:0 22px; }
+  header { background:linear-gradient(135deg,#0d2b54,#1565c0); color:#fff;
+           padding:46px 0 38px; }
+  header h1 { margin:0 0 6px; font-size:2.05rem; line-height:1.25;
+              letter-spacing:-.01em; }
+  header .sub { font-size:1.05rem; opacity:.92; margin-bottom:20px; }
+  .authors { font-size:1.02rem; }
+  .authors b { font-weight:600; }
+  .affil { opacity:.85; font-size:.92rem; margin-top:4px; }
+  .btns { margin-top:24px; display:flex; flex-wrap:wrap; gap:10px; }
+  .btn { display:inline-block; background:#fff; color:var(--accent);
+         padding:9px 16px; border-radius:8px; text-decoration:none;
+         font-weight:600; font-size:.93rem; border:1px solid transparent;
+         transition:transform .08s; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn.alt { background:transparent; color:#fff; border-color:rgba(255,255,255,.5); }
+  section { padding:30px 0; border-bottom:1px solid var(--line); }
+  h2 { font-size:1.32rem; margin:0 0 14px; }
+  h3 { font-size:1.05rem; margin:22px 0 6px; }
+  p { color:#222; }
+  .muted { color:var(--muted); }
+  .card { background:var(--card); border:1px solid var(--line);
+          border-radius:12px; padding:18px 20px; margin:14px 0; }
+  table { border-collapse:collapse; width:100%; font-size:.93rem; }
+  th,td { padding:7px 10px; text-align:right; border-bottom:1px solid var(--line); }
+  th:first-child,td:first-child { text-align:left; }
+  thead th { border-bottom:2px solid #ccc; }
+  td.win { font-weight:700; color:var(--accent); }
+  code,pre { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  pre { background:#0d1b2a; color:#e8eef5; padding:16px; border-radius:10px;
+        overflow:auto; font-size:.86rem; line-height:1.5; }
+  .pill { display:inline-block; background:#eef3fb; color:var(--accent);
+          border-radius:999px; padding:2px 11px; font-size:.8rem;
+          font-weight:600; margin-right:6px; }
+  footer { padding:26px 0 50px; color:var(--muted); font-size:.88rem; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="pill">IEEE 802.11ax / Wi-Fi</div>
+    <div class="pill">Age of Information</div>
+    <div class="pill">ns-3 artifact</div>
+    <h1>Age-Optimal Target Wake Time</h1>
+    <div class="sub">Provably Good Wake Schedules for Energy-Constrained
+      Wi-Fi Status Updating</div>
+    <div class="authors">
+      <b>Haoyu Wang</b>, <b>Bo Sheng</b>
+      <span class="affil">&mdash; University of Massachusetts Boston</span><br>
+      <b>Zerin Shaima Meem</b>, <b>Xiaoqian Zhang</b>
+      <span class="affil">&mdash; University of Nebraska Omaha</span>
+    </div>
+    <div class="btns">
+      <a class="btn" href="../paper/age-optimal-twt.pdf">Paper (PDF)</a>
+      <a class="btn alt" href="../paper/age-optimal-twt-techreport.pdf">Technical report (full proofs)</a>
+      <a class="btn alt" href="https://github.com/Haoyu2/age-optimal-twt">Code &amp; data</a>
+      <a class="btn alt" href="PRIMER-aoi-renewal.md">AoI primer</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>Abstract</h2>
+  <p>Target Wake Time (TWT), introduced in IEEE&nbsp;802.11ax, lets an access
+  point schedule exactly when each station wakes, transmits, and dozes.
+  Existing TWT schedulers optimize energy or throughput, treating information
+  freshness at best as a constraint and offering no performance guarantees.
+  We design the wake schedule itself for freshness: minimize the weighted
+  average <b>Age of Information (AoI)</b> over stations subject to per-station
+  energy budgets, where the decision variables are the TWT triples (wake
+  interval, offset, service-period duration). We derive a renewal-exact AoI
+  model for TWT under per-SP block fading and validate it against packet-level
+  802.11ax simulation in ns-3 to within ~1% mean error; we show that, unlike
+  preemptive scheduling, non-preemptive TWT packing can be infeasible at
+  schedule density&nbsp;1; and we build <b>Harmonic-Greedy</b>, a scheduler
+  with a deterministic <b>4/ln&nbsp;2&nbsp;&approx;&nbsp;5.77</b> approximation
+  guarantee under a mild granularity assumption (6/ln&nbsp;2&nbsp;&approx;&nbsp;8.66
+  unconditionally).</p>
+</section>
+
+<section>
+  <h2>Key result: when does AoI-weighting help?</h2>
+  <p>We compare against a naive baseline (<i>equal-interval</i>) and a strong
+  one (<i>energy-greedy</i>, period-diverse but AoI-unaware), plus a relaxation
+  lower bound. Weighted mean AoI (ms, 10 stations, 10 seeds):</p>
+  <div class="card">
+  <table>
+    <thead><tr><th>Regime</th><th>Equal</th><th>Energy-greedy</th>
+      <th>Harmonic-Greedy</th><th>LB</th></tr></thead>
+    <tbody>
+      <tr><td>heterogeneous budget, skew</td><td>20.9</td><td>19.1</td><td>18.8</td><td>15.8</td></tr>
+      <tr><td>heterogeneous budget, fade+skew</td><td>51.3</td><td>45.1</td><td>44.7</td><td>35.7</td></tr>
+      <tr><td><b>uniform budget, skew</b></td><td>17.2</td><td>17.2</td><td class="win">16.0</td><td>15.2</td></tr>
+      <tr><td><b>uniform budget, fade+skew</b></td><td>41.6</td><td>41.6</td><td class="win">39.8</td><td>35.9</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">With heterogeneous budgets, per-station energy floors pin
+  the periods and the strong baseline already matches us. AoI-weighting is
+  isolated in the <b>uniform-budget, binding-density</b> regime, where
+  energy-greedy collapses to equal-interval and only Harmonic-Greedy wins
+  (5&ndash;6.5%). With mixed modulation rates the gain reaches 36% at
+  N&nbsp;=&nbsp;50, decomposing into period diversity (+23%) and AoI-weighting
+  (+17%).</p>
+</section>
+
+<section>
+  <h2>Reproduce</h2>
+  <p>The artifact is an ns-3 <code>contrib</code> module plus a small
+  <code>src/wifi</code> mechanism patch (a TWT power-save manager). On a stock
+  ns-3.48 tree:</p>
+<pre>git clone https://github.com/Haoyu2/age-optimal-twt
+# 1. copy the TWT mechanism into src/wifi and the module into contrib/
+cp age-optimal-twt/artifact/src-wifi/twt-power-save-manager.* ns-3/src/wifi/model/
+cp -r age-optimal-twt/artifact/ns3-aoi-twt-module ns-3/contrib/aoi-twt
+cp age-optimal-twt/artifact/scratch/*.cc ns-3/scratch/
+#    (register the two src/wifi files in src/wifi/CMakeLists.txt)
+# 2. build
+cd ns-3 &amp;&amp; ./ns3 configure --enable-modules=aoi-twt,wifi,internet,applications \
+                          --enable-tests --enable-examples &amp;&amp; ./ns3 build
+# 3. unit tests, validation, and the full sweep
+./test.py -s aoi-twt
+python3 age-optimal-twt/artifact/scripts/run_sweep.py 28   # -&gt; results.csv
+python3 age-optimal-twt/artifact/scripts/make_macros.py results.csv</pre>
+  <p class="muted">See the repository <a
+  href="https://github.com/Haoyu2/age-optimal-twt#readme">README</a> for full
+  details and the plotting scripts.</p>
+</section>
+
+<section>
+  <h2>BibTeX</h2>
+<pre>@inproceedings{wang26aoitwt,
+  author    = {Wang, Haoyu and Sheng, Bo and Meem, Zerin Shaima and
+               Zhang, Xiaoqian},
+  title     = {Age-Optimal Target Wake Time: Provably Good Wake Schedules
+               for Energy-Constrained {Wi-Fi} Status Updating},
+  booktitle = {Proc. ACM MSWiM},
+  year      = {2026},
+  note      = {under review}
+}</pre>
+</section>
+
+<footer>
+  <div>Artifact and code released to support reproducibility. Built on
+  <a href="https://www.nsnam.org/">ns-3</a>.</div>
+</footer>
+
+</div>
+</body>
+</html>

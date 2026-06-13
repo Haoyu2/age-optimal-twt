@@ -1,0 +1,9 @@
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+__pycache__/
+*.pyc
+results.csv
+figures/
