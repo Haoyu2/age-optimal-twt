@@ -17,9 +17,9 @@ paper's results, and the **raw result data** from the reported sweeps.
 
 ```
 artifact/
-  ns3-aoi-twt-module/   ns-3 contrib module: AoI model + schedulers + tests
+  ns3-aoi-twt-module/   ns-3 contrib module: AoI model + schedulers + tests +
+                        the single- and multi-station experiments (examples/)
   src-wifi/             TWT power-save manager (drops into ns-3 src/wifi)
-  scratch/              single- and multi-station experiments
   scripts/              sweep drivers, lower bound, figure/macro generators
   results/              raw result CSVs + generated figures from the paper
 paper/                  compiled paper and technical report
@@ -36,11 +36,10 @@ docs/                   primer + project landing page
 From a stock ns-3.48 tree:
 
 ```bash
-# 1. install the mechanism and the module
+# 1. install the mechanism and the (self-contained) module
 cp artifact/src-wifi/twt-power-save-manager.{h,cc} ns-3/src/wifi/model/
 #    register both files in src/wifi/CMakeLists.txt (SOURCE_FILES / HEADER_FILES)
-cp -r artifact/ns3-aoi-twt-module ns-3/contrib/aoi-twt
-cp artifact/scratch/*.cc ns-3/scratch/
+cp -r artifact/ns3-aoi-twt-module ns-3/contrib/aoi-twt   # includes the experiments
 
 # 2. configure + build
 cd ns-3

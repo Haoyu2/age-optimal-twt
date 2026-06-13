@@ -129,8 +129,8 @@
 # 1. copy the TWT mechanism into src/wifi and the module into contrib/
 cp age-optimal-twt/artifact/src-wifi/twt-power-save-manager.* ns-3/src/wifi/model/
 cp -r age-optimal-twt/artifact/ns3-aoi-twt-module ns-3/contrib/aoi-twt
-cp age-optimal-twt/artifact/scratch/*.cc ns-3/scratch/
-#    (register the two src/wifi files in src/wifi/CMakeLists.txt)
+#    (the module's examples/ folder already contains the experiments;
+#     register the two src/wifi files in src/wifi/CMakeLists.txt)
 # 2. build
 cd ns-3 &amp;&amp; ./ns3 configure --enable-modules=aoi-twt,wifi,internet,applications \
                           --enable-tests --enable-examples &amp;&amp; ./ns3 build
