@@ -73,7 +73,10 @@ def fig_regimes(data_dir, fig_dir):
     ax.set_xticks(list(x))
     ax.set_xticklabels(labels, fontsize=7)
     ax.set_ylabel("weighted mean AoI [ms]")
-    ax.legend(frameon=False, fontsize=8)
+    # headroom so the horizontal legend row clears the tallest bar
+    ax.set_ylim(top=ax.get_ylim()[1] * 1.20)
+    ax.legend(frameon=False, fontsize=8, ncol=3, loc="upper center",
+              columnspacing=1.2, handletextpad=0.5)
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     fig.savefig(f"{fig_dir}/regimes.pdf")

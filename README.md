@@ -80,17 +80,13 @@ All implement a common `TwtScheduler` interface (`artifact/ns3-aoi-twt-module/mo
   best-of-uniform safeguard. Set `DyadicReservations=true`, `DensityTarget=0.25`
   for the variant covered by the approximation theorems.
 
-## Citation
+## Authors
 
-```bibtex
-@inproceedings{wang26aoitwt,
-  author    = {Wang, Haoyu and Sheng, Bo and Zhang, Xiaoqian},
-  title     = {Age-Optimal Target Wake Time: Provably Good Wake Schedules
-               for Energy-Constrained {Wi-Fi} Status Updating},
-  booktitle = {Proc. ACM MSWiM},
-  year      = {2026}
-}
-```
+- Haoyu Wang, Bo Sheng — University of Massachusetts Boston
+- Xiaoqian Zhang — University of Nebraska Omaha
+
+This is an unpublished manuscript under review; please contact the authors
+before citing.
 
 ## License
 
