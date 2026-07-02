@@ -10,6 +10,7 @@ ns-3 implementation of a Target Wake Time (TWT) mechanism, the
 **Harmonic-Greedy** AoI-aware scheduler, every script needed to regenerate the
 paper's results, and the **raw result data** from the reported sweeps.
 
+- 🌐 [Project page](https://haoyu2.github.io/age-optimal-twt/)
 - 📄 [Paper](paper/age-optimal-twt.pdf) · [Technical report (full proofs)](paper/age-optimal-twt-techreport.pdf)
 - 📐 [Primer: the TWT AoI renewal-reward formula](docs/PRIMER-aoi-renewal.md)
 
